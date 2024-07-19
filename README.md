@@ -1,3 +1,3 @@
-##Można wygenerować dokumentację za pomocą Rdoc:
+<h1>Można wygenerować dokumentację za pomocą Rdoc:</h1>
 
-#bundle exec Rdoc
+<h3>bundle exec Rdoc</h3>
