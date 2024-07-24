@@ -33,10 +33,9 @@ Sklonuj repozytorium z projektem:
 
 Przejdź do katalogu z projektem:
 
-    ```sh
 
     cd wieza-hanoi
-    ```
+
 Upewnij się, że plik Hanoi.rb znajduje się w tym samym katalogu co main.rb.
 
 
@@ -44,11 +43,9 @@ Upewnij się, że plik Hanoi.rb znajduje się w tym samym katalogu co main.rb.
 
 Aby uruchomić grę Wieża Hanoi, wykonaj następujące kroki:
 
-    Otwórz terminal i przejdź do katalogu z projektem.
+Otwórz terminal i przejdź do katalogu z projektem.
 
-    Uruchom plik main.rb:
-
-    sh
+Uruchom plik main.rb:
 
     ruby main.rb
 
@@ -58,7 +55,7 @@ Postępuj zgodnie z instrukcjami wyświetlanymi na ekranie:
 
 - Wybierz prędkość układania (od 1 do 10).
 
-Instrukcja Użytkowania
+## Instrukcja Użytkowania
 
 #### Podanie liczby pierścieni: 
 
