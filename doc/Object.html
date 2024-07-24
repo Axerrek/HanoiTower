@@ -41,7 +41,7 @@
     <div id="search-field-wrapper">
       <input id="search-field" role="combobox" aria-label="Search"
              aria-autocomplete="list" aria-controls="search-results"
-             type="text" name="search" placeholder="Search (/) for a class, method, ..." spellcheck="false"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
     </div>
 
@@ -75,6 +75,7 @@
     <li ><a href="#method-i-disks_input">#disks_input</a>
     <li ><a href="#method-i-main">#main</a>
     <li ><a href="#method-i-speed_input">#speed_input</a>
+    <li ><a href="#method-i-valid_integer-3F">#valid_integer?</a>
   </ul>
 </div>
 
@@ -102,28 +103,32 @@
        </header>
 
       <div id="method-i-disks_input" class="method-detail ">
-        <div class="method-header">
-          <div class="method-heading">
-            <span class="method-name">disks_input</span><span
-              class="method-args">()</span>
-            <span class="method-click-advice">click to toggle source</span>
-          </div>
+        <div class="method-heading">
+          <span class="method-name">disks_input</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Funkcja Wypytująca użytkownika o liczbę pierścieni</p>
+          <p>Funkcja wypytująca użytkownika o liczbę pierścieni</p>
+
+<p>Pyta użytkownika o liczbę pierścieni do momentu, aż wprowadzi prawidłową wartość (liczbę całkowitą większą od 0).</p>
+
+<p>@return [Integer] liczba pierścieni</p>
 
           <div class="method-source-code" id="disks_input-source">
-            <pre><span class="ruby-comment"># File main.rb, line 7</span>
+            <pre><span class="ruby-comment"># File main.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">disks_input</span>
   <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Podaj liczbę pierścieni: &quot;</span>
     <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
-    <span class="ruby-comment">#warunek blokujący wartości poniżej 1 oraz wartości tekstowe</span>
+    <span class="ruby-comment"># warunek blokujący wartości poniżej 1 oraz wartości tekstowe</span>
     <span class="ruby-comment"># wartości zmiennoprzecinkowe są traktowane jak zaokrąglane w dół</span>
     <span class="ruby-comment"># np. 2,5 =&gt; 2</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_integer?</span>(<span class="ruby-identifier">input</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
       <span class="ruby-keyword">return</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Nieprawidłowa wartość. Spróbuj ponownie.&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -134,54 +139,87 @@
       </div>
 
       <div id="method-i-main" class="method-detail ">
-        <div class="method-header">
-          <div class="method-heading">
-            <span class="method-name">main</span><span
-              class="method-args">()</span>
-            <span class="method-click-advice">click to toggle source</span>
-          </div>
+        <div class="method-heading">
+          <span class="method-name">main</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Pętla odczytująca wartości wejściowe od użytkownika</p>
+          <p>Główna funkcja programu uruchamiająca algorytm Wieży Hanoi</p>
+
+<p>Wyświetla informacje o grze Wieża Hanoi i zapytuje użytkownika o liczbę pierścieni oraz prędkość wykonywania rozwiązania. Tworzy obiekt klasy <a href="TowerOfHanoi.html"><code>TowerOfHanoi</code></a> i uruchamia metodę rozwiązującą.</p>
 
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File main.rb, line 4</span>
+            <pre><span class="ruby-comment"># File main.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Wieża Hanoi&quot;</span>
-  <span class="ruby-comment">#Funkcja Wypytująca użytkownika o liczbę pierścieni</span>
+
+
+  <span class="ruby-comment"># Sprawdza, czy dany wpis jest liczbą całkowitą.</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># Metoda konwertuje wejściowy obiekt na ciąg znaków, a następnie sprawdza,</span>
+  <span class="ruby-comment"># czy ciąg ten składa się wyłącznie z cyfr. Jest to użyteczne do walidacji,</span>
+  <span class="ruby-comment"># czy wejściowy tekst może być traktowany jako liczba całkowita.</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># Przykłady:</span>
+  <span class="ruby-comment">#   valid_integer?(&quot;123&quot;)  #=&gt; true</span>
+  <span class="ruby-comment">#   valid_integer?(&quot;12.3&quot;) #=&gt; false</span>
+  <span class="ruby-comment">#   valid_integer?(&quot;abc&quot;)  #=&gt; false</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># @param input [Object] Obiekt wejściowy, który ma być sprawdzony.</span>
+  <span class="ruby-comment"># @return [Boolean] Zwraca true, jeśli obiekt wejściowy jest liczbą całkowitą,</span>
+  <span class="ruby-comment">#                   w przeciwnym razie zwraca false.</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">valid_integer?</span>(<span class="ruby-identifier">input</span>)
+    <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-regexp">/^\d+$/</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Funkcja wypytująca użytkownika o liczbę pierścieni</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># Pyta użytkownika o liczbę pierścieni do momentu, aż wprowadzi</span>
+  <span class="ruby-comment"># prawidłową wartość (liczbę całkowitą większą od 0).</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># @return [Integer] liczba pierścieni</span>
   <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">disks_input</span>
     <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
       <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Podaj liczbę pierścieni: &quot;</span>
       <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
-      <span class="ruby-comment">#warunek blokujący wartości poniżej 1 oraz wartości tekstowe</span>
+      <span class="ruby-comment"># warunek blokujący wartości poniżej 1 oraz wartości tekstowe</span>
       <span class="ruby-comment"># wartości zmiennoprzecinkowe są traktowane jak zaokrąglane w dół</span>
       <span class="ruby-comment"># np. 2,5 =&gt; 2</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_integer?</span>(<span class="ruby-identifier">input</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Nieprawidłowa wartość. Spróbuj ponownie.&quot;</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-comment">#Funkcja Wypytująca użytkownika o szybkość wykonywania rozwiązania</span>
+
+  <span class="ruby-comment"># Funkcja wypytująca użytkownika o szybkość wykonywania rozwiązania</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># Pyta użytkownika o prędkość układania do momentu, aż wprowadzi</span>
+  <span class="ruby-comment"># prawidłową wartość (liczbę całkowitą z przedziału 1-10).</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># @return [Integer] prędkość układania (1-10)</span>
   <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">speed_input</span>
     <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Wybierz Prędkość układania [1-10]&quot;</span>
-      <span class="ruby-identifier">input</span>= <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
-      <span class="ruby-comment">#warunek blokujący wartości, które nie są z przedziału [1-10] oraz wartości tekstowe</span>
-      <span class="ruby-comment"># wartości zmiennoprzecinkowe są traktowane jak zaokrąglane w dół</span>
-      <span class="ruby-comment"># np. 2,5 =&gt; 2</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">10</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Wybierz Prędkość układania [1-10]: &quot;</span>
+      <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_integer?</span>(<span class="ruby-identifier">input</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">10</span>
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">input</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Nieprawidłowa wartość. Spróbuj ponownie.&quot;</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-comment">#przypisanie wartości z wejścia użytkownika: num_disks i solve_speed</span>
+
+  <span class="ruby-comment"># Przypisanie wartości z wejścia użytkownika: num_disks i solve_speed</span>
   <span class="ruby-identifier">num_disks</span> = <span class="ruby-identifier">disks_input</span>
   <span class="ruby-identifier">solve_speed</span> = <span class="ruby-identifier">speed_input</span>
 
-  <span class="ruby-comment">#Utworzenie obiektu Wieży Hanoi</span>
+  <span class="ruby-comment"># Utworzenie obiektu Wieży Hanoi</span>
   <span class="ruby-identifier">tower_of_hanoi</span> = <span class="ruby-constant">TowerOfHanoi</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">num_disks</span>, <span class="ruby-identifier">solve_speed</span>)
-  <span class="ruby-comment">#Wywołanie funkcji rozwiązującej</span>
+  <span class="ruby-comment"># Wywołanie funkcji rozwiązującej</span>
   <span class="ruby-identifier">tower_of_hanoi</span>.<span class="ruby-identifier">solve</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -191,30 +229,65 @@
       </div>
 
       <div id="method-i-speed_input" class="method-detail ">
-        <div class="method-header">
-          <div class="method-heading">
-            <span class="method-name">speed_input</span><span
-              class="method-args">()</span>
-            <span class="method-click-advice">click to toggle source</span>
-          </div>
+        <div class="method-heading">
+          <span class="method-name">speed_input</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Funkcja Wypytująca użytkownika o szybkość wykonywania rozwiązania</p>
+          <p>Funkcja wypytująca użytkownika o szybkość wykonywania rozwiązania</p>
+
+<p>Pyta użytkownika o prędkość układania do momentu, aż wprowadzi prawidłową wartość (liczbę całkowitą z przedziału 1-10).</p>
+
+<p>@return [Integer] prędkość układania (1-10)</p>
 
           <div class="method-source-code" id="speed_input-source">
-            <pre><span class="ruby-comment"># File main.rb, line 20</span>
+            <pre><span class="ruby-comment"># File main.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">speed_input</span>
   <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Wybierz Prędkość układania [1-10]&quot;</span>
-    <span class="ruby-identifier">input</span>= <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
-    <span class="ruby-comment">#warunek blokujący wartości, które nie są z przedziału [1-10] oraz wartości tekstowe</span>
-    <span class="ruby-comment"># wartości zmiennoprzecinkowe są traktowane jak zaokrąglane w dół</span>
-    <span class="ruby-comment"># np. 2,5 =&gt; 2</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">10</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Wybierz Prędkość układania [1-10]: &quot;</span>
+    <span class="ruby-identifier">input</span> = <span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">to_i</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">valid_integer?</span>(<span class="ruby-identifier">input</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">10</span>
       <span class="ruby-keyword">return</span> <span class="ruby-identifier">input</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Nieprawidłowa wartość. Spróbuj ponownie.&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-valid_integer-3F" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">valid_integer?</span><span
+            class="method-args">(input)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Sprawdza, czy dany wpis jest liczbą całkowitą.</p>
+
+<p>Metoda konwertuje wejściowy obiekt na ciąg znaków, a następnie sprawdza, czy ciąg ten składa się wyłącznie z cyfr. Jest to użyteczne do walidacji, czy wejściowy tekst może być traktowany jako liczba całkowita.</p>
+
+<p>Przykłady:</p>
+
+<pre class="ruby"><span class="ruby-identifier">valid_integer?</span>(<span class="ruby-string">&quot;123&quot;</span>)  <span class="ruby-comment">#=&gt; true</span>
+<span class="ruby-identifier">valid_integer?</span>(<span class="ruby-string">&quot;12.3&quot;</span>) <span class="ruby-comment">#=&gt; false</span>
+<span class="ruby-identifier">valid_integer?</span>(<span class="ruby-string">&quot;abc&quot;</span>)  <span class="ruby-comment">#=&gt; false</span>
+</pre>
+
+<p>@param input [Object] Obiekt wejściowy, który ma być sprawdzony. @return [Boolean] Zwraca true, jeśli obiekt wejściowy jest liczbą całkowitą,</p>
+
+<pre>w przeciwnym razie zwraca false.</pre>
+
+          <div class="method-source-code" id="valid_integer-3F-source">
+            <pre><span class="ruby-comment"># File main.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">valid_integer?</span>(<span class="ruby-identifier">input</span>)
+  <span class="ruby-identifier">input</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">match?</span>(<span class="ruby-regexp">/^\d+$/</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -230,7 +303,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="https://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.6.3.1.
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.3.1.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

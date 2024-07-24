@@ -70,16 +70,49 @@ class TowerOfHanoi
     @move_count += 1
     visualize
   end
+
+  # Reprezentuje wizualizację aktualnego stanu Wieży Hanoi.
+  #
+  # Metoda ta rysuje obecny stan wież na terminalu oraz wyświetla liczbę wykonanych ruchów.
+  # Oczyszcza ekran przed każdym rysowaniem, aby zapewnić aktualizację wizualizacji.
+  # Rysuje dyski w różnych wieżach, a także linie oddzielające wieże oraz wskaźnik liczby ruchów.
+  # Wizualizacja uwzględnia kolory, które mogą być używane do oznaczenia różnych elementów (jeśli są ustawione).
+  #
+  # Wywołanie tej metody spowoduje, że terminal wyświetli bieżący stan Wieży Hanoi, gdzie:
+  # - Dyski są reprezentowane jako pełne bloki (█),
+  # - Puste miejsca są reprezentowane jako pionowe kreski (║),
+  # - Linia pozioma na dole jest reprezentowana przez znak "═" z centralnym "╩".
+  #
+  # Po każdej aktualizacji ekran jest oczyszczany, a następnie rysowany na nowo z uwzględnieniem prędkości rozwiązania.
+  #
+  # @return [void]
+  # @see #solve
   def visualize
     system "clear" or system "cls"
     max_height = @num_disks
-    @towers.each_with_index do |tower, index|
-      puts "Wieża #{index + 1}:"
-      tower.each { |disk| puts " " * (max_height - disk) + "#" * (disk * 2 - 1) + " " * (max_height - disk) }
-      puts "-" * (max_height * 2 - 1)
+    max_disk_size = @num_disks * 2 - 1
+    tower_width = max_disk_size + 2
+    display_width = tower_width * 3 + 2
+
+    (0...max_height).reverse_each do |level|
+      row = " " * display_width
+      @towers.each_with_index do |tower, tower_index|
+        center = tower_index * (tower_width+1) + tower_width / 2
+        if tower[level].nil?
+          row[center] = "║"
+        else
+          disk_size = tower[level] * 2 - 1
+          start_index = center - disk_size / 2
+          row[start_index, disk_size] = "█" * disk_size
+        end
+      end
+      puts row
     end
+
+    puts ("═" * (tower_width/2) +"╩"+ "═" * (tower_width/2) + " ") * 3
     puts "Ruch: #{@move_count}"
-    sleep 1.0/solve_speed
+    sleep 1.0 / solve_speed
   end
+
 
 end

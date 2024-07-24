@@ -1,5 +1,7 @@
-Fri, 19 Jul 2024 10:03:28 +0000
-/home/hosting/files/Hanoi/Gemfile	Fri, 19 Jul 2024 06:59:48 +0000
-/home/hosting/files/Hanoi/Gemfile.lock	Fri, 19 Jul 2024 06:59:50 +0000
-/home/hosting/files/Hanoi/Hanoi.rb	Fri, 19 Jul 2024 10:03:27 +0000
-/home/hosting/files/Hanoi/main.rb	Fri, 19 Jul 2024 08:54:34 +0000
+Wed, 24 Jul 2024 09:53:25 +0200
+Gemfile	Fri, 19 Jul 2024 08:59:48 +0200
+Gemfile.lock	Fri, 19 Jul 2024 08:59:50 +0200
+Hanoi.rb	Wed, 24 Jul 2024 09:50:50 +0200
+main.rb	Wed, 24 Jul 2024 09:53:22 +0200
+spec/hanoi_spec_spec.rb	Fri, 19 Jul 2024 10:57:06 +0200
+spec/spec_helper.rb	Fri, 19 Jul 2024 10:37:40 +0200
